@@ -1,0 +1,165 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  const motivos = {
+    informacion: [
+      "Imagen",
+      "Laboratorio",
+      "Vacunas",
+      "Maternovalles",
+      "Consulta externa",
+      "Edificio Especialidades médicas",
+      "Chequeos ejecutivos",
+      "Servicio a Domicilio",
+      "Resultados",
+      "Hospitalización / Emergencia",
+      "Medios de Publicidad",
+    ],
+    agendamiento: [
+      "Agendamiento",
+      "Reagendamiento",
+      "Cancelación agendamiento",
+    ],
+    requerimientos: ["Requerimientos", "Reclamos", "Transferencia de llamadas"],
+  };
+
+  const submotivos = {
+    Imagen: ["Horarios de atención", "Precios", "Disponibilidad agenda"],
+    Laboratorio: ["Horarios de atención", "Precios"],
+    Vacunas: ["Disponibilidad de vacunas", "Precios"],
+    Maternovalles: ["Inf precios paquetes", "Agendamiento Tour de maternidad"],
+    "Consulta externa": ["Disponibilidad de agenda", "Inf citas agendadas"],
+    "Edificio Especialidades médicas": [
+      "Solicitud del paciente",
+      "No hay especialidad en el HDLV",
+      "No hay agenda disponible",
+    ],
+    "Chequeos ejecutivos": ["Disponibilidad agenda", "Inf paquetes y costos"],
+    "Servicio a Domicilio": ["Inf disponibilidad", "Inf costos"],
+    Resultados: ["Resultados imagen", "Resultados laboratorio"],
+    "Hospitalización / Emergencia": [
+      "Horarios de visitas",
+      "Inf habitaciones",
+      "Inf traslados",
+    ],
+    "Medios de Publicidad": [
+      "Facebook",
+      "Instagram",
+      "Página web",
+      "Recomendaciones",
+    ],
+    Agendamiento: [
+      "Consulta externa",
+      "Imagen",
+      "Servicio a Domicilio",
+      "Chequeos ejecutivos",
+      "Rehabilitación",
+      "Estudios Cardiológicos",
+      "Gastrovalles",
+    ],
+    Reagendamiento: [
+      "Consulta externa",
+      "Imagen",
+      "Servicio a Domicilio",
+      "Chequeos ejecutivos",
+      "Rehabilitación",
+      "Gastrovalles",
+    ],
+    "Cancelación agendamiento": [
+      "Consulta externa",
+      "Imagen",
+      "Servicio a Domicilio",
+      "Chequeos ejecutivos",
+      "Rehabilitación",
+      "Gastrovalles",
+    ],
+    Requerimientos: [
+      "Cotizaciones / Historia Clínica",
+      "Facturas",
+      "Estados de cuenta",
+      "Liquidaciones de cuentas",
+      "Cambios en facturas",
+      "Historia Clínica",
+    ],
+    Reclamos: [
+      "Enfermería",
+      "Cajas / Admisiones",
+      "Emergencia",
+      "Médicos",
+      "Imagen",
+      "Laboratorio",
+      "Hospitalización",
+      "Edif administrativo",
+      "Call center",
+      "Mantenimiento / Limpieza",
+    ],
+    "Transferencia de llamadas": [
+      "Contesta",
+      "No contesta",
+      "Llamada rebotada",
+    ],
+  };
+
+  document.getElementById("tipo").addEventListener("change", function () {
+    let motivoSelect = document.getElementById("motivo");
+    motivoSelect.innerHTML = "<option value=''>Seleccione un motivo</option>";
+
+    let submotivoSelect = document.getElementById("submotivo");
+    submotivoSelect.innerHTML =
+      "<option value=''>Seleccione un submotivo</option>";
+
+    if (motivos[this.value]) {
+      motivos[this.value].forEach((motivo) => {
+        motivoSelect.add(new Option(motivo, motivo));
+      });
+    }
+  });
+
+  document.getElementById("motivo").addEventListener("change", function () {
+    let submotivoSelect = document.getElementById("submotivo");
+    submotivoSelect.innerHTML =
+      "<option value=''>Seleccione un submotivo</option>";
+
+    let motivoSeleccionado = this.value;
+    if (submotivos[motivoSeleccionado]) {
+      submotivos[motivoSeleccionado].forEach((submotivo) => {
+        submotivoSelect.add(new Option(submotivo, submotivo));
+      });
+    }
+  });
+
+  document
+    .getElementById("gestionForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      let valid = true;
+      document
+        .querySelectorAll(".form-select, .form-control")
+        .forEach((input) => {
+          input.classList.remove("is-invalid");
+        });
+
+      // Validar campos
+      [
+        "tipoLlamada",
+        "genero",
+        "identificacion",
+        "numeroIdentificacion",
+        "nombre",
+        "extension",
+        "campana",
+        "tipo",
+        "motivo",
+        "submotivo",
+      ].forEach((id) => {
+        let element = document.getElementById(id);
+        if (element.value === "") {
+          valid = false;
+          element.classList.add("is-invalid");
+        }
+      });
+      if (valid) {
+        this.submit();
+      }
+    });
+</script>

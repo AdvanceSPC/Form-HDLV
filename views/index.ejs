@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión</title>
+    <link
+      rel="shortcut icon"
+      href="/assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/assets/css/custom-styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-4">
+      <div class="card shadow p-3 rounded">
+        <h2 class="mb-4 text-center text-primary">Formulario de Gestión</h2>
+        <form id="gestionForm" method="POST" action="/guardar">
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label for="callId" class="form-label">Call ID</label>
+              <input type="text" id="callId" name="callId" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+              <label for="agent" class="form-label">Agent</label>
+              <input type="text" id="agent" name="agent" class="form-control" readonly />
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label for="tipoLlamada" class="form-label"
+                >Tipo de Llamada</label
+              >
+              <select id="tipoLlamada" name="tipoLlamada" class="form-select">
+                <option value="">Seleccione</option>
+                <option value="Inbound">Inbound</option>
+                <option value="Outbound">Outbound</option>
+              </select>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="genero" class="form-label">Género</label>
+              <select id="genero" name="genero" class="form-select">
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otros">Otros</option>
+              </select>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label for="identificacion" class="form-label"
+                >Tipo de Identificación</label
+              >
+              <select id="identificacion" name="identificacion" class="form-select">
+                <option value="Cedula">Cédula</option>
+                <option value="RUC">RUC</option>
+                <option value="Pasaporte">Pasaporte</option>
+                <option value="Otros">Otros</option>
+              </select>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="numeroIdentificacion" class="form-label"
+                >Identificación</label
+              >
+              <input
+                type="text"
+                id="numeroIdentificacion"
+                class="form-control"
+                name="numeroIdentificacion"
+              />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label for="nombre" class="form-label">Nombres y Apellidos</label>
+              <input type="text" id="nombre" name="nombre" class="form-control" />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="extension" class="form-label"
+                >Número de Extensión</label
+              >
+              <input type="text" id="extension" name="extension" class="form-control" />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label for="campana" class="form-label">Campaña</label>
+            <select id="campana" name="campana" class="form-select">
+                <option value="agendamiento_consulta_medica">agendamiento_consulta_medica</option>
+                <option value="agendamiento_imagen">agendamiento_imagen</option>
+                <option value="informacion_estudios_imagen">informacion_estudios_imagen</option>
+                <option value="servicio_cliente">servicio_cliente</option>
+            </select>
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+        </div>        
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label for="tipo" class="form-label">Tipo</label>
+              <select id="tipo" name="tipo" class="form-select">
+                <option value="">Seleccione un tipo</option>
+                <option value="informacion">Información</option>
+                <option value="agendamiento">Agendamiento</option>
+                <option value="requerimientos">Requerimientos</option>
+              </select>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="motivo" class="form-label">Motivo</label>
+              <select id="motivo" name="motivo" class="form-select">
+                <option value="">Seleccione un motivo</option>
+              </select>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label for="submotivo" class="form-label">Submotivo</label>
+            <select id="submotivo" name="submotivo" class="form-select">
+              <option value="">Seleccione un submotivo</option>
+            </select>
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-2">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <textarea
+              id="observaciones"
+              class="form-control"
+              rows="3"
+              name="observaciones"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Enviar</button>
+        </form>
+      </div>
+    </div>
+    <%- include('./partials/verificacion') %>
+  </body>
+</html>
