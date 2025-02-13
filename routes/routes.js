@@ -4,6 +4,6 @@ const { vistaPrincipal, guardarFormulario, obtenerDatosPorIdentificacion } = req
 
 router.get('/', vistaPrincipal);
 router.post('/guardar', guardarFormulario);
-router.get("/obtenerDatos/:numeroIdentificacion", obtenerDatosPorIdentificacion);
+router.post("/obtenerDatos/:numeroIdentificacion", obtenerDatosPorIdentificacion);
 
 module.exports = router;

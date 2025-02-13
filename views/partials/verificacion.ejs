@@ -172,34 +172,25 @@
 <script>
   document.getElementById("numeroIdentificacion").addEventListener("blur", function () {
     let identificacion = this.value.trim();
-    
+    let nombre = document.getElementById("nombre").value.trim();
+    let genero = document.getElementById("genero").value.trim();
+  
     if (identificacion && identificacion !== "999") {
-      fetch(`/obtenerDatos/${identificacion}`)
-        .then(response => {
-          if (!response.ok) {
-            // Si el código de respuesta es 404, significa que no hay datos
-            if (response.status === 404) {
-              throw new Error("No se encontraron datos");
-            }
-            throw new Error("Error en la respuesta del servidor");
-          }
-          return response.json();
-        })
+      fetch(`/obtenerDatos/${identificacion}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, genero }) // Enviar los datos
+      })
+        .then(response => response.json())
         .then(data => {
-          // Si se encuentra la identificación, llenar los campos
           document.getElementById("nombre").value = data.nombre || "";
           document.getElementById("genero").value = data.genero || "";
         })
-        .catch(error => {
-          console.warn(error.message);
-          // Limpiar los campos si no se encuentra la identificación
-          document.getElementById("nombre").value = "";
-          document.getElementById("genero").value = "";
-        });
+        .catch(error => console.warn("Error:", error));
     } else {
-      // Si se borra la identificación, limpiar los campos
       document.getElementById("nombre").value = "";
       document.getElementById("genero").value = "";
     }
-  });  
+  });
+  
 </script>
