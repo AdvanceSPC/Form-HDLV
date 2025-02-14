@@ -1,4 +1,4 @@
-const pool = require('../database/db');
+const pool = require("../database/db");
 
 const vistaPrincipal = (req, res) => {
   res.render("index");
@@ -6,25 +6,25 @@ const vistaPrincipal = (req, res) => {
 
 const guardarFormulario = async (req, res) => {
   try {
-    const { 
-      callId, 
+    const {
+      callId,
       agent = "",
-      tipoLlamada, 
-      genero, 
-      identificacion, 
-      numeroIdentificacion, 
-      nombre, 
-      extension, 
-      campana, 
-      tipo, 
-      motivo, 
-      submotivo, 
-      observaciones 
+      tipoLlamada,
+      genero,
+      identificacion,
+      numeroIdentificacion,
+      nombre,
+      extension,
+      campana,
+      tipo,
+      motivo,
+      submotivo,
+      observaciones,
     } = req.body || {};
 
     // Verificar si el contacto ya existe
     const [existe] = await pool.execute(
-      `SELECT 1 FROM contactos WHERE identificacion = ? LIMIT 1`, 
+      `SELECT 1 FROM contactos WHERE identificacion = ? LIMIT 1`,
       [numeroIdentificacion]
     );
 
@@ -33,14 +33,29 @@ const guardarFormulario = async (req, res) => {
       const insertQuery = `
         INSERT INTO contactos (tipo_identificacion, identificacion, nombre_apellidos, genero)
         VALUES (?, ?, ?, ?)`;
-      await pool.execute(insertQuery, [identificacion, numeroIdentificacion, nombre, genero]);
+      await pool.execute(insertQuery, [
+        identificacion,
+        numeroIdentificacion,
+        nombre,
+        genero,
+      ]);
     }
 
     // Insertar la gestión de llamada
     const valores = [
-      callId, agent, tipoLlamada, genero, identificacion,
-      numeroIdentificacion, nombre, extension, campana,
-      tipo, motivo, submotivo, observaciones
+      callId,
+      agent,
+      tipoLlamada,
+      genero,
+      identificacion,
+      numeroIdentificacion,
+      nombre,
+      extension,
+      campana,
+      tipo,
+      motivo,
+      submotivo,
+      observaciones,
     ];
 
     const query = `
@@ -52,8 +67,8 @@ const guardarFormulario = async (req, res) => {
     await pool.execute(query, valores);
     res.redirect(`/?callerid=${callId}`);
   } catch (error) {
-    console.error('Error al guardar el formulario:', error);
-    res.redirect('/');
+    console.error("Error al guardar el formulario:", error);
+    res.redirect("/");
   }
 };
 
@@ -78,4 +93,8 @@ const obtenerDatosPorIdentificacion = async (req, res) => {
   }
 };
 
-module.exports = { vistaPrincipal, guardarFormulario, obtenerDatosPorIdentificacion };
+module.exports = {
+  vistaPrincipal,
+  guardarFormulario,
+  obtenerDatosPorIdentificacion,
+};

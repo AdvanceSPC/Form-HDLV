@@ -162,28 +162,29 @@
 <!-- callid -->
 <script>
   const urlParams = new URLSearchParams(window.location.search);
-  const callId = urlParams.get('callerid');
+  const callId = urlParams.get("callerid");
   if (callId) {
-    document.getElementById('callId').value = callId;
+    document.getElementById("callId").value = callId;
   }
 </script>
 <!-- autocompletar -->
 <script>
-  document.getElementById("numeroIdentificacion").addEventListener("blur", function () {
-    let identificacion = this.value.trim();
-    
-    if (identificacion && identificacion !== "999") {
-      fetch(`/obtenerDatos/${identificacion}`)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("nombre").value = data.nombre || "";
-          document.getElementById("genero").value = data.genero || "";
-        })
-        .catch(error => console.warn("Error:", error));
-    } else {
-      document.getElementById("nombre").value = "";
-      document.getElementById("genero").value = "";
-    }
-  });
-  
+  document
+    .getElementById("numeroIdentificacion")
+    .addEventListener("blur", function () {
+      let identificacion = this.value.trim();
+
+      if (identificacion && identificacion !== "999") {
+        fetch(`/obtenerDatos/${identificacion}`)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("nombre").value = data.nombre || "";
+            document.getElementById("genero").value = data.genero || "";
+          })
+          .catch((error) => console.warn("Error:", error));
+      } else {
+        document.getElementById("nombre").value = "";
+        document.getElementById("genero").value = "";
+      }
+    });
 </script>

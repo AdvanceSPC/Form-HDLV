@@ -20,15 +20,31 @@
         <form id="gestionForm" method="POST" action="/guardar">
           <!-- Campos ocultos -->
           <input type="hidden" id="callId" name="callId" value="" />
-          <input type="hidden" id="tipoLlamada" name="tipoLlamada" value="Inbound" />
+          <input
+            type="hidden"
+            id="tipoLlamada"
+            name="tipoLlamada"
+            value="Inbound"
+          />
           <input type="hidden" id="extension" name="extension" value="" />
-          <input type="hidden" id="campana" name="campana" value="agendamiento_consulta_medica" />
+          <input
+            type="hidden"
+            id="campana"
+            name="campana"
+            value="agendamiento_consulta_medica"
+          />
 
           <!-- Tipo de Identificación e Identificación -->
           <div class="row mb-3">
             <div class="col-md-6">
-              <label for="identificacion" class="form-label">Tipo de Identificación</label>
-              <select id="identificacion" name="identificacion" class="form-select">
+              <label for="identificacion" class="form-label"
+                >Tipo de Identificación</label
+              >
+              <select
+                id="identificacion"
+                name="identificacion"
+                class="form-select"
+              >
                 <option value="Cedula">Cédula</option>
                 <option value="RUC">RUC</option>
                 <option value="Pasaporte">Pasaporte</option>
@@ -37,7 +53,9 @@
               <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <div class="col-md-6">
-              <label for="numeroIdentificacion" class="form-label">Identificación</label>
+              <label for="numeroIdentificacion" class="form-label"
+                >Identificación</label
+              >
               <input
                 type="text"
                 id="numeroIdentificacion"
@@ -62,7 +80,12 @@
             </div>
             <div class="col-md-6">
               <label for="nombre" class="form-label">Nombres y Apellidos</label>
-              <input type="text" id="nombre" name="nombre" class="form-control" />
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="form-control"
+              />
               <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
           </div>
