@@ -12,10 +12,8 @@
       "dest": "/public/$1"
     },
     {
-      "src": "/obtenerDatos/(.*)",
-      "headers": {
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate"
-      }
+      "src": "/api/(.*)",
+      "dest": "/app.js"
     },
     {
       "src": "/(.*)",
