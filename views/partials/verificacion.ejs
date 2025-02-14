@@ -1,5 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<!-- verificacion.ejs -->
 <script>
   const motivos = {
     informacion: [
@@ -172,15 +171,9 @@
 <script>
   document.getElementById("numeroIdentificacion").addEventListener("blur", function () {
     let identificacion = this.value.trim();
-    let nombre = document.getElementById("nombre").value.trim();
-    let genero = document.getElementById("genero").value.trim();
-  
+    
     if (identificacion && identificacion !== "999") {
-      fetch(`/obtenerDatos/${identificacion}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, genero }) // Enviar los datos
-      })
+      fetch(`/obtenerDatos/${identificacion}`)
         .then(response => response.json())
         .then(data => {
           document.getElementById("nombre").value = data.nombre || "";

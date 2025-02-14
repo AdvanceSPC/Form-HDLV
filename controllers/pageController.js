@@ -22,6 +22,21 @@ const guardarFormulario = async (req, res) => {
       observaciones 
     } = req.body || {};
 
+    // Verificar si el contacto ya existe
+    const [existe] = await pool.execute(
+      `SELECT 1 FROM contactos WHERE identificacion = ? LIMIT 1`, 
+      [numeroIdentificacion]
+    );
+
+    if (existe.length === 0) {
+      // Insertar nuevo contacto si no existe
+      const insertQuery = `
+        INSERT INTO contactos (tipo_identificacion, identificacion, nombre_apellidos, genero)
+        VALUES (?, ?, ?, ?)`;
+      await pool.execute(insertQuery, [identificacion, numeroIdentificacion, nombre, genero]);
+    }
+
+    // Insertar la gestión de llamada
     const valores = [
       callId, agent, tipoLlamada, genero, identificacion,
       numeroIdentificacion, nombre, extension, campana,
@@ -45,24 +60,17 @@ const guardarFormulario = async (req, res) => {
 const obtenerDatosPorIdentificacion = async (req, res) => {
   try {
     const { numeroIdentificacion } = req.params;
-    const { nombre = "", genero = "" } = req.body; // Recibir datos del formulario
-
     if (!numeroIdentificacion || numeroIdentificacion === "999") {
-      return res.json({ nombre: "", genero: "" }); // Si no hay identificación válida, devolver vacío
+      return res.json({ nombre: "", genero: "" });
     }
 
-    // Buscar contacto en la tabla "contactos"
-    const query = `SELECT Nombres AS nombre, Genero AS genero FROM contactos WHERE Identificacion = ? LIMIT 1`;
+    const query = `SELECT nombre_apellidos AS nombre, genero FROM contactos WHERE identificacion = ? LIMIT 1`;
     const [rows] = await pool.execute(query, [numeroIdentificacion]);
 
     if (rows.length === 0) {
-      // Insertar contacto si no existe
-      const insertQuery = `INSERT INTO contactos (Identificacion, Nombres, Genero) VALUES (?, ?, ?)`;
-      await pool.execute(insertQuery, [numeroIdentificacion, nombre, genero]);
-
-      // Devolver los datos recién insertados
-      return res.json({ nombre, genero });
+      return res.json({ nombre: "", genero: "" });
     }
+
     return res.json(rows[0]);
   } catch (error) {
     console.error("Error al obtener datos:", error);
